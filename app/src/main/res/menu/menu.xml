@@ -4,14 +4,18 @@
 
     <item
         android:id="@+id/home"
-        android:title="Home" />
+        android:title="Home"
+        android:visible="true" />
     <item
         android:id="@+id/reminders"
-        android:title="Reminders" />
+        android:title="Reminders"
+        android:visible="true" />
     <item
         android:id="@+id/findHelp"
-        android:title="Find Help" />
+        android:title="Find Help"
+        android:visible="true" />
     <item
         android:id="@+id/journal"
-        android:title="Journal" />
+        android:title="Journal"
+        android:visible="true" />
 </menu>
