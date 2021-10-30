@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/homeMenuItem"
         android:title="Home"
         android:visible="true" />
     <item
-        android:id="@+id/reminders"
+        android:id="@+id/remindersMenuItem"
         android:title="Reminders"
         android:visible="true" />
     <item
-        android:id="@+id/findHelp"
+        android:id="@+id/findHelpMenuItem"
         android:title="Find Help"
         android:visible="true" />
     <item
-        android:id="@+id/journal"
+        android:id="@+id/journalMenuItem"
         android:title="Journal"
         android:visible="true" />
 </menu>
