@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
     private NavigationBarView bottomNavigationView;
-    Intent remindersIntent = new Intent(this, RemindersActivity.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         //bottomNavigationView.setOnItemSelectedListener(bottomnavFunction);
+    }
+
+    public void goToReminders(View view) {
+        Intent remindersIntent = new Intent(this, RemindersActivity.class);
+        startActivity(remindersIntent);
     }
 
 //    private NavigationBarView.OnItemSelectedListener bottomnavFunction = new NavigationBarView.OnItemSelectedListener() {
