@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_drawable"
-    android:onClick="goToReminders"
     tools:context=".MainActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -46,7 +45,7 @@
         android:fontFamily="@font/roboto_medium"
         android:text="Schedule Reminders"
         android:textColor="@color/black"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -56,11 +55,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="240dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Find Help"
         android:textColor="@color/black"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scheduleRemindersTextView" />
@@ -70,21 +69,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="300dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Journal"
         android:textColor="@color/black"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/findHelpTextView" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="315dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="180dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="24sp"
         android:visibility="invisible" />
 
 </RelativeLayout>

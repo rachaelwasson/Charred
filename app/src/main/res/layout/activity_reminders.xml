@@ -17,22 +17,6 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/titleTextView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="60dp"-->
-<!--        android:layout_marginTop="60dp"-->
-<!--        android:fontFamily="@font/roboto_medium"-->
-<!--        android:text="Reminders"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="48sp"-->
-<!--        android:textAlignment="center"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5" />-->
-
 
     <TextView
         android:id="@+id/remindersTitle"
@@ -40,7 +24,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="60dp"
         android:inputType="textPersonName"
         android:text="Reminders"
@@ -54,68 +38,74 @@
     <Button
         android:id="@+id/mondayButton"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="141dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/button_border_monday"
+        android:onClick="onButtonClick"
         android:text="Monday"
         android:textColor="@color/black" />
 
     <Button
         android:id="@+id/tuesdayButton"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="180dp"
         android:background="@drawable/button_border_tuesday"
+        android:onClick="onButtonClick"
         android:text="Tuesday"
         android:textColor="@color/black" />
 
     <Button
         android:id="@+id/wednesdayButton"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="257dp"
+        android:layout_marginTop="240dp"
         android:background="@drawable/button_border_wednesday"
+        android:onClick="onButtonClick"
         android:text="Wednesday"
         android:textColor="@color/black" />
 
     <Button
         android:id="@+id/thursdayButton"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="136dp"
-        android:layout_marginTop="314dp"
+        android:layout_marginTop="300dp"
         android:background="@drawable/button_border_thursday"
+        android:onClick="onButtonClick"
         android:text="Thursday"
         android:textColor="@color/theme5" />
 
     <Button
         android:id="@+id/fridayButton"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:layout_marginTop="369dp"
+        android:layout_marginTop="360dp"
         android:background="@drawable/button_border_friday"
+        android:onClick="onButtonClick"
         android:text="Friday"
         android:textColor="@color/theme5" />
 
     <Button
         android:id="@+id/saturdayButton"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:layout_marginTop="426dp"
+        android:layout_marginTop="420dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/button_border_saturday"
+        android:onClick="onButtonClick"
         android:text="Saturday"
         android:textColor="@color/theme5" />
 
@@ -125,8 +115,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:layout_marginTop="484dp"
+        android:layout_marginTop="480dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/button_border_sunday"
+        android:onClick="onButtonClick"
         android:text="Sunday"
         android:textColor="@color/theme5" />
 </RelativeLayout>
