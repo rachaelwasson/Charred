@@ -28,7 +28,21 @@
         android:text="[DAY]"
         android:textAlignment="center"
         android:textColor="#070707"
-        android:textSize="48sp"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addReminderButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/button_border_monday"
+        android:onClick="onButtonClick"
+        android:text="Add Reminder"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

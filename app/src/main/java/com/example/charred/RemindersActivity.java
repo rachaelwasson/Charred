@@ -58,18 +58,29 @@ public class RemindersActivity extends AppCompatActivity {
 
     // can we use only one class for each day, updating the schedule/page text with params?
     // maybe? otherwise we'll need a class for each day
-    public void onButtonClick(View view, String day) {
-//        switch (view.getId()) {
-//            case (R.id.mondayButton):
-//                goToDailySchedule("Monday");
-//                break;
-//            case (R.id.tuesdayButton):
-//                goToDailySchedule("Tuesday");
-//                break;
-//            case (R.id.wednesdayButton):
-//                goToDailySchedule("Wednesday");
-//                break;
-//        }
-        goToDailySchedule("Other Day");
+    public void onButtonClick(View view) {
+        switch (view.getId()) {
+            case (R.id.mondayButton):
+                goToDailySchedule("Monday");
+                break;
+            case (R.id.tuesdayButton):
+                goToDailySchedule("Tuesday");
+                break;
+            case (R.id.wednesdayButton):
+                goToDailySchedule("Wednesday");
+                break;
+            case (R.id.thursdayButton):
+                goToDailySchedule("Thursday");
+                break;
+            case (R.id.fridayButton):
+                goToDailySchedule("Friday");
+                break;
+            case (R.id.saturdayButton):
+                goToDailySchedule("Saturday");
+                break;
+            case (R.id.sundayButton):
+                goToDailySchedule("Sunday");
+                break;
+        }
     }
 }
