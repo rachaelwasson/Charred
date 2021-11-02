@@ -2,7 +2,9 @@ package com.example.charred;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,10 +12,13 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
+
 public class DailyScheduleActivity extends AppCompatActivity {
 
     TextView titleTextView;
     private NavigationBarView bottomNavigationView;
+    public static ArrayList<Reminder> reminders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,21 @@ public class DailyScheduleActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String day = intent.getStringExtra("day");
         titleTextView.setText(day);
+
+        // Load reminders from database
+        Context context = getApplicationContext();
+        SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase("reminders", Context.MODE_PRIVATE, null);
+
+        RemindersDBHelper dbHelper = new RemindersDBHelper(sqLiteDatabase);
+        reminders = dbHelper.readReminders(day);
+
+        ArrayList<String> displayReminders = new ArrayList<>();
+        for (Reminder reminder: reminders) {
+            displayReminders.add(String.format("%s-%s: ", reminder.getStartTime(), reminder.getEndTime(), reminder.getTitle()));
+        }
+
+        // TODO useListView view to display reminders on screen
+
     }
 
     public void goToReminders() {
