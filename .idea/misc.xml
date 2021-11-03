@@ -8,6 +8,12 @@
         <entry key="app/src/main/res/drawable/button_border_monday.xml" value="0.1296875" />
         <entry key="app/src/main/res/drawable/button_border_saturday.xml" value="0.13645833333333332" />
         <entry key="app/src/main/res/drawable/button_border_sunday.xml" value="0.13645833333333332" />
+        <entry key="app/src/main/res/drawable/button_border_theme1.xml" value="0.16574074074074074" />
+        <entry key="app/src/main/res/drawable/button_border_theme2.xml" value="0.16574074074074074" />
+        <entry key="app/src/main/res/drawable/button_border_theme3.xml" value="0.16574074074074074" />
+        <entry key="app/src/main/res/drawable/button_border_theme4.xml" value="0.16574074074074074" />
+        <entry key="app/src/main/res/drawable/button_border_theme5.xml" value="0.16574074074074074" />
+        <entry key="app/src/main/res/drawable/button_border_theme6.xml" value="0.16574074074074074" />
         <entry key="app/src/main/res/drawable/button_border_thursday.xml" value="0.13645833333333332" />
         <entry key="app/src/main/res/drawable/button_border_tuesday.xml" value="0.13645833333333332" />
         <entry key="app/src/main/res/drawable/button_border_wednesday.xml" value="0.13645833333333332" />

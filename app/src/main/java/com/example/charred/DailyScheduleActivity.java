@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ public class DailyScheduleActivity extends AppCompatActivity {
     TextView titleTextView;
     private NavigationBarView bottomNavigationView;
     public static ArrayList<Reminder> reminders = new ArrayList<>();
+    String day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class DailyScheduleActivity extends AppCompatActivity {
 
         titleTextView = findViewById(R.id.dailyScheduleTitle);
         Intent intent = getIntent();
-        String day = intent.getStringExtra("day");
+        day = intent.getStringExtra("day");
         titleTextView.setText(day);
 
         // Load reminders from database
@@ -44,6 +46,7 @@ public class DailyScheduleActivity extends AppCompatActivity {
 
         ArrayList<String> displayReminders = new ArrayList<>();
         for (Reminder reminder: reminders) {
+            Log.i("reminder", reminder.getTitle());
             displayReminders.add(String.format("%s-%s: ", reminder.getStartTime(), reminder.getEndTime(), reminder.getTitle()));
         }
 
@@ -83,8 +86,9 @@ public class DailyScheduleActivity extends AppCompatActivity {
 //    public void onButtonClick(View view) {
 //        openDialog();
 //    }
-    public void onButtonClick(View view) {
+    public void onNewReminderButtonClick(View view) {
         Intent newReminderIntent = new Intent(this, NewReminderActivity.class);
+        newReminderIntent.putExtra("day", day);
         startActivity(newReminderIntent);
     }
 

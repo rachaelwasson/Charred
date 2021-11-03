@@ -58,4 +58,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    public void onButtonClick(View view){
+        goToReminders();
+    }
+
 }

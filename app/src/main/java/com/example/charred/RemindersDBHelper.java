@@ -52,13 +52,13 @@ public class RemindersDBHelper {
 
     public void saveReminders(String day, String startTime, String endTime, String title) {
         createTable();
-        sqLiteDatabase.execSQL(String.format("INSERT INTO notes (day, startTime, endTime, title) VALUES ('%s', '%s', '%s', '%s')",
+        sqLiteDatabase.execSQL(String.format("INSERT INTO reminders (day, startTime, endTime, title) VALUES ('%s', '%s', '%s', '%s')",
                 day, startTime, endTime, title));
     }
 
     public void updateReminder(String day, String startTime, String endTime, String title) {
         createTable();
-        sqLiteDatabase.execSQL(String.format("Update notes set startTime = '%s', endTime = '%s' where title = '%s' and day = '%s'",
+        sqLiteDatabase.execSQL(String.format("Update reminders set startTime = '%s', endTime = '%s' where title = '%s' and day = '%s'",
                 startTime, endTime, title, day));
     }
 }

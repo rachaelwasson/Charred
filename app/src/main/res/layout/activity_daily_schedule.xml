@@ -32,14 +32,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/addReminderButton"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_border_monday"
-        android:onClick="onButtonClick"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/button_border_theme5"
+        android:onClick="onNewReminderButtonClick"
         android:text="Add Reminder"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
