@@ -32,13 +32,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/addReminderButton"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/button_border_monday"
         android:onClick="onButtonClick"
         android:text="Add Reminder"
@@ -46,5 +45,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/remindersListView"
+        android:layout_width="367dp"
+        android:layout_height="460dp"
+        android:layout_marginTop="160dp"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

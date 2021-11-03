@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".NewReminderActivity"
+            android:exported="false" />
+        <activity
             android:name=".DailyScheduleActivity"
             android:exported="false" />
         <activity

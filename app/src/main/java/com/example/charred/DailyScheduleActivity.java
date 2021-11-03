@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationBarView;
@@ -45,7 +47,9 @@ public class DailyScheduleActivity extends AppCompatActivity {
             displayReminders.add(String.format("%s-%s: ", reminder.getStartTime(), reminder.getEndTime(), reminder.getTitle()));
         }
 
-        // TODO useListView view to display reminders on screen
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, displayReminders);
+        ListView listView = (ListView) findViewById(R.id.remindersListView);
+        listView.setAdapter(adapter);
 
     }
 
@@ -74,8 +78,14 @@ public class DailyScheduleActivity extends AppCompatActivity {
         }
     };
 
+    // I can't figure out a way to get multiple inputs from a dialog box,
+    // so changing this part of the design to a new activity like we did in Lab 5
+//    public void onButtonClick(View view) {
+//        openDialog();
+//    }
     public void onButtonClick(View view) {
-        openDialog();
+        Intent newReminderIntent = new Intent(this, NewReminderActivity.class);
+        startActivity(newReminderIntent);
     }
 
     public void openDialog() {
