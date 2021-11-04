@@ -18,7 +18,7 @@ public class RemindersDBHelper {
     public void createTable() {
 
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS reminders " +
-                "(id INTEGER PRIMARY KEY, day TEXT, startTime TEXT, endTime TEXT, title TEXT, src TEXT)");
+                "(id INTEGER PRIMARY KEY, day TEXT, time TEXT, title TEXT, src TEXT)");
     }
 
     public ArrayList<Reminder> readReminders(String day) {
@@ -26,8 +26,7 @@ public class RemindersDBHelper {
         createTable();
         Cursor c = sqLiteDatabase.rawQuery(String.format("SELECT * from reminders where day like '%s'", day), null);
 
-        int startTimeIndex = c.getColumnIndex("startTime");
-        int endTimeIndex = c.getColumnIndex("endTime");
+        int timeIndex = c.getColumnIndex("time");
         int titleIndex = c.getColumnIndex("title");
 
         c.moveToFirst();
@@ -36,11 +35,10 @@ public class RemindersDBHelper {
 
         while (!c.isAfterLast()) {
 
-            String startTime = c.getString(startTimeIndex);
-            String endTime = c.getString(endTimeIndex);
+            String time = c.getString(timeIndex);
             String title = c.getString(titleIndex);
 
-            Reminder reminder = new Reminder(day, startTime, endTime, title);
+            Reminder reminder = new Reminder(day, time, title);
             remindersList.add(reminder);
             c.moveToNext();
         }
@@ -50,15 +48,23 @@ public class RemindersDBHelper {
         return remindersList;
     }
 
-    public void saveReminders(String day, String startTime, String endTime, String title) {
+    public void saveReminders(String day, String time, String title) {
         createTable();
-        sqLiteDatabase.execSQL(String.format("INSERT INTO reminders (day, startTime, endTime, title) VALUES ('%s', '%s', '%s', '%s')",
-                day, startTime, endTime, title));
+        sqLiteDatabase.execSQL(String.format("INSERT INTO reminders (day, time, title) VALUES ('%s', '%s', '%s')",
+                day, time, title));
     }
 
-    public void updateReminder(String day, String startTime, String endTime, String title) {
+    public void updateReminder(String day, String time, String title) {
         createTable();
-        sqLiteDatabase.execSQL(String.format("Update reminders set startTime = '%s', endTime = '%s' where title = '%s' and day = '%s'",
-                startTime, endTime, title, day));
+        sqLiteDatabase.execSQL(String.format("Update reminders set time = '%s' where title = '%s' and day = '%s'",
+                time, title, day));
+    }
+
+    public void deleteReminder(String day, String time, String title) {
+        createTable();
+        sqLiteDatabase.execSQL(String.format("DELETE FROM reminders WHERE day = '%s' and time = '%s' and title = '%s'",
+                day, time, title));
+        // DELETE FROM reminders WHERE title=Eat lunch!
+        //return sqLiteDatabase.delete("reminders", "title" + "=" + title, null) > 0;
     }
 }

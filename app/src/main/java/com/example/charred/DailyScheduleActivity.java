@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,13 +48,30 @@ public class DailyScheduleActivity extends AppCompatActivity {
         ArrayList<String> displayReminders = new ArrayList<>();
         for (Reminder reminder: reminders) {
             Log.i("reminder", reminder.getTitle());
-            displayReminders.add(String.format("%s-%s: ", reminder.getStartTime(), reminder.getEndTime(), reminder.getTitle()));
+            displayReminders.add(String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
         }
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, displayReminders);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.black_text_list_item, displayReminders);
         ListView listView = (ListView) findViewById(R.id.remindersListView);
         listView.setAdapter(adapter);
 
+        // clicking a list item opens up a dialog to delete or edit note
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle args = new Bundle();
+                args.putInt("position", position);
+                args.putLong("id", id);
+                openDialog(args);
+            }
+        });
+
+    }
+
+    public void openDialog(Bundle args) {
+        ReminderDialog reminderDialog = new ReminderDialog();
+        reminderDialog.setArguments(args);
+        reminderDialog.show(getSupportFragmentManager(), "new reminder dialog");
     }
 
     public void goToReminders() {
@@ -90,11 +108,6 @@ public class DailyScheduleActivity extends AppCompatActivity {
         Intent newReminderIntent = new Intent(this, NewReminderActivity.class);
         newReminderIntent.putExtra("day", day);
         startActivity(newReminderIntent);
-    }
-
-    public void openDialog() {
-        NewReminderDialog newReminderDialog = new NewReminderDialog();
-        newReminderDialog.show(getSupportFragmentManager(), "new reminder dialog");
     }
 
 }

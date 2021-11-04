@@ -3,22 +3,18 @@ package com.example.charred;
 public class Reminder {
 
     private String day;
-    private String startTime;
-    private String endTime;
+    private String time;
     private String title;
 
-    public Reminder(String day, String startTime, String endTime, String title) {
+    public Reminder(String day, String time, String title) {
         this.day = day;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.time = time;
         this.title = title;
     }
 
     public String getDay() { return day; }
 
-    public String getStartTime() { return startTime; }
-
-    public String getEndTime() { return endTime; }
+    public String getTime() { return time; }
 
     public String getTitle() { return title; }
 }
