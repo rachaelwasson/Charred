@@ -35,6 +35,16 @@ public class RemindersActivity extends AppCompatActivity {
         startActivity(homeIntent);
     }
 
+    public void goToHelp() {
+        Intent homeIntent = new Intent(this, HelpActivity.class);
+        startActivity(homeIntent);
+    }
+
+    public void goToJournal() {
+        Intent homeIntent = new Intent(this, JournalActivity.class);
+        startActivity(homeIntent);
+    }
+
     private NavigationBarView.OnItemSelectedListener bottomnavFunction = new NavigationBarView.OnItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
@@ -44,6 +54,12 @@ public class RemindersActivity extends AppCompatActivity {
                     break;
                 case R.id.homeMenuItem:
                     goToHome();
+                    break;
+                case R.id.findHelpMenuItem:MenuItem:
+                    goToHelp();
+                    break;
+                case R.id.journalMenuItem:
+                    goToJournal();
                     break;
             }
             return true;

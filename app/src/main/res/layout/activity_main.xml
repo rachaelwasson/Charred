@@ -8,6 +8,13 @@
     android:background="@drawable/gradient_drawable"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/play" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
@@ -19,74 +26,38 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/remindersButton"
+        android:layout_width="160dp"
+        android:layout_height="66dp"
+        android:layout_above="@+id/helpButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="60dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="CHARRED"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/scheduleRemindersTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="180dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Schedule Reminders"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <TextView
-        android:id="@+id/findHelpTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="240dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Find Help"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scheduleRemindersTextView" />
-
-    <TextView
-        android:id="@+id/journalTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="300dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Journal"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/findHelpTextView" />
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/button_border_theme6"
+        android:onClick="onClickHomePage"
+        android:text="Schedule Reminders" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="180dp"
-        android:fontFamily="@font/roboto_medium"
-        android:onClick="onButtonClick"
-        android:textSize="24sp"
-        android:visibility="invisible" />
+        android:id="@+id/helpButton"
+        android:layout_width="160dp"
+        android:layout_height="66dp"
+        android:layout_above="@+id/journalButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/button_border_theme6"
+        android:onClick="onClickHomePage"
+        android:text="Find Help" />
+
+    <Button
+        android:id="@+id/journalButton"
+        android:layout_width="160dp"
+        android:layout_height="66dp"
+        android:layout_above="@+id/bottomNav"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/button_border_theme6"
+        android:onClick="onClickHomePage"
+        android:text="Journal" />
+
 
 </RelativeLayout>

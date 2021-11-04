@@ -3,28 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.13645833333333332" />
-        <entry key="app/src/main/res/drawable/button_border_friday.xml" value="0.1296875" />
-        <entry key="app/src/main/res/drawable/button_border_monday.xml" value="0.1296875" />
-        <entry key="app/src/main/res/drawable/button_border_saturday.xml" value="0.13645833333333332" />
-        <entry key="app/src/main/res/drawable/button_border_sunday.xml" value="0.13645833333333332" />
-        <entry key="app/src/main/res/drawable/button_border_theme1.xml" value="0.16574074074074074" />
-        <entry key="app/src/main/res/drawable/button_border_theme2.xml" value="0.16574074074074074" />
-        <entry key="app/src/main/res/drawable/button_border_theme3.xml" value="0.16574074074074074" />
-        <entry key="app/src/main/res/drawable/button_border_theme4.xml" value="0.16574074074074074" />
-        <entry key="app/src/main/res/drawable/button_border_theme5.xml" value="0.16574074074074074" />
-        <entry key="app/src/main/res/drawable/button_border_theme6.xml" value="0.16574074074074074" />
-        <entry key="app/src/main/res/drawable/button_border_thursday.xml" value="0.13645833333333332" />
-        <entry key="app/src/main/res/drawable/button_border_tuesday.xml" value="0.13645833333333332" />
-        <entry key="app/src/main/res/drawable/button_border_wednesday.xml" value="0.13645833333333332" />
-        <entry key="app/src/main/res/drawable/edit_text_border.xml" value="0.13645833333333332" />
-        <entry key="app/src/main/res/drawable/gradient_drawable.xml" value="0.13645833333333332" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.13645833333333332" />
-        <entry key="app/src/main/res/layout/activity_daily_schedule.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_new_reminder.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_reminders.xml" value="0.25" />
-        <entry key="app/src/main/res/menu/menu.xml" value="0.225" />
+        <entry key="..\:/Users/ziako/AndroidStudioProjects/Charred/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/ziako/AndroidStudioProjects/Charred/app/src/main/res/drawable/button_border_theme1.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/ziako/AndroidStudioProjects/Charred/app/src/main/res/layout/activity_help.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/ziako/AndroidStudioProjects/Charred/app/src/main/res/layout/activity_journal.xml" value="0.152" />
+        <entry key="..\:/Users/ziako/AndroidStudioProjects/Charred/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/ziako/AndroidStudioProjects/Charred/app/src/main/res/layout/activity_reminders.xml" value="0.16666666666666666" />
       </map>
     </option>
   </component>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JournalActivity"
+    android:background="@drawable/gradient_drawable">
+
+    <TextView
+        android:id="@+id/journalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:text="Journal"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        android:textSize="48sp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#CAF0F8"
+        android:textAlignment="center"
+        app:itemTextColor="@color/black"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu" />
+
+    <ListView
+        android:layout_width="375dp"
+        android:layout_height="456dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="17dp" />
+
+    <Button
+        android:id="@+id/addSection"
+        android:layout_width="140dp"
+        android:layout_height="68dp"
+        android:layout_above="@+id/bottomNav"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/button_border_theme6"
+        android:text="Add a Section" />
+
+</RelativeLayout>
