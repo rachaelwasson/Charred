@@ -7,6 +7,28 @@
     tools:context=".HelpActivity"
     android:background="@drawable/gradient_drawable">
 
+    <Button
+        android:id="@+id/selectButton"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="197dp"
+        android:background="@drawable/button_border_theme2"
+        android:onClick="onButtonClick"
+        android:text="Select"
+        android:textColor="@color/theme5" />
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="98dp" />
+
     <TextView
         android:id="@+id/helpTitle"
         android:layout_width="wrap_content"
@@ -20,16 +42,20 @@
         android:textColor="#070707"
         android:textSize="48sp" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/universityText"
-        android:layout_width="wrap_content"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="196dp"
+        android:layout_marginTop="140dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="Enter University Here"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#070707"
-        android:text="Enter University Here" />
+        android:textSize="18sp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"

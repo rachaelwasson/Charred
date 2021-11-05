@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.charred">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -35,8 +38,8 @@
         </activity>
 
         <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBKj2zHtJ1I-bVJuizLe2x3dnAxYaUSzvY"/>
     </application>
 
 </manifest>
