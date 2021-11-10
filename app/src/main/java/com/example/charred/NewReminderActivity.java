@@ -1,14 +1,18 @@
 package com.example.charred;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -18,11 +22,11 @@ import android.widget.Toast;
 // this class can be used to add a new reminder or edit an existing reminder
 public class NewReminderActivity extends AppCompatActivity {
 
-    private static final int NOTIFICATION_REMINDER_NIGHT = 0;
+    //private static final int NOTIFICATION_REMINDER_NIGHT = 0;
     int reminderid=-1;
     String day;
-    //public static final String CHANNEL_1_ID = "channel1";
-    //private NotificationManagerCompat notificationManager;
+    public static final String CHANNEL_1_ID = "channel1";
+    private NotificationManagerCompat notificationManager;
     EditText timeEditText;
     EditText titleEditText;
 
@@ -45,8 +49,8 @@ public class NewReminderActivity extends AppCompatActivity {
             titleEditText.setText(title);
         }
 
-        createNotificationChannel();
-        //notificationManager = NotificationManagerCompat.from(this);
+        //createNotificationChannel();
+        notificationManager = NotificationManagerCompat.from(this);
     }
 
     public void cancelMethod(View view) {
@@ -58,21 +62,6 @@ public class NewReminderActivity extends AppCompatActivity {
     public void saveMethod(View view) {
         String time = timeEditText.getText().toString();
         String title = titleEditText.getText().toString();
-        Toast.makeText(this, "Reminder Set!", Toast.LENGTH_SHORT).show();
-
-        Intent intent = new Intent(NewReminderActivity.this, ReminderBroadcast.class);
-        intent.putExtra("title", title);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(NewReminderActivity.this, 0, intent, 0);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        long timeAtButtonClick = System.currentTimeMillis();
-
-        long tenSecondsInMillis = 1000 * 10;
-
-        alarmManager.set(AlarmManager.RTC_WAKEUP,
-                timeAtButtonClick + tenSecondsInMillis,
-                pendingIntent);
 
         Context context = getApplicationContext();
         SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase("reminders", Context.MODE_PRIVATE, null);
@@ -84,21 +73,34 @@ public class NewReminderActivity extends AppCompatActivity {
             remindersDBHelper.updateReminder(day, time, title);
         }
 
+        Toast.makeText(this, "Reminder Set!", Toast.LENGTH_SHORT).show();
+        sendOnChannel(view);
+
         Intent intent1 = new Intent(this, DailyScheduleActivity.class);
         intent1.putExtra("day", day);
         startActivity(intent1);
     }
 
-    private void createNotificationChannel() {
+    public void sendOnChannel(View v) {
+        String time = timeEditText.getText().toString();
+        String title = titleEditText.getText().toString();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "reminder";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("reminder", name, importance);
+        Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
+        broadcastIntent.putExtra("title", title);
+        PendingIntent actionIntent = PendingIntent.getBroadcast(this,
+                0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        long timeAtButtonClick = System.currentTimeMillis();
+
+        long fiveSecondsInMillis = 1000 * 5;
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                timeAtButtonClick + fiveSecondsInMillis,
+                actionIntent);
     }
+
+
 
 }
