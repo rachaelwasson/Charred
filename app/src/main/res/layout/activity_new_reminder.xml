@@ -11,96 +11,81 @@
         android:id="@+id/newReminderTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginBottom="57dp"
         android:ems="10"
         android:text="New Reminder"
         android:textAlignment="center"
         android:textColor="#070707"
         android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/timeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="59dp"
-        android:fontFamily="@font/roboto"
-        android:text="Time:"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/timeEditText"
-        app:layout_constraintEnd_toStartOf="@+id/timeEditText"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!--    Might have to change to date picker dialog box -->
-    <EditText
-        android:id="@+id/timeEditText"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="68dp"
-        android:background="@drawable/edit_text_border"
-        android:hint="hh:mm(a/p)"
-        android:inputType="time"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/timeTextView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--    Might have to change to date picker dialog box -->
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="14dp"
         android:fontFamily="@font/roboto"
-        android:text="Title:"
+        android:text="Enter Title:"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/titleEditText"
+        app:layout_constraintBottom_toTopOf="@+id/titleEditText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/titleEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
 
     <EditText
         android:id="@+id/titleEditText"
-        android:layout_width="0dp"
+        android:layout_width="217dp"
         android:layout_height="40dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="73dp"
+        android:layout_marginBottom="88dp"
         android:background="@drawable/edit_text_border"
         android:textAlignment="center"
         android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/titleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/timeEditText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="269dp"
         android:background="@drawable/button_border_theme1"
         android:onClick="saveMethod"
         android:text="Save"
-        app:layout_constraintBaseline_toBaselineOf="@+id/cancelButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cancelButton"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
 
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="17dp"
+        android:layout_marginEnd="7dp"
         android:background="@drawable/button_border_theme2"
         android:onClick="cancelMethod"
         android:text="Cancel"
+        app:layout_constraintBaseline_toBaselineOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/saveButton"
-        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+        app:layout_constraintStart_toEndOf="@+id/saveButton" />
+
+    <Button
+        android:id="@+id/timeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="59dp"
+        android:background="@drawable/button_border_theme6"
+        android:onClick="showDatePickerDialog"
+        android:text="Set Time"
+        app:layout_constraintBottom_toTopOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newReminderTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

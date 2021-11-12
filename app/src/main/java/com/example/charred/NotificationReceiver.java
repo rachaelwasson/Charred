@@ -19,8 +19,10 @@ public class NotificationReceiver extends BroadcastReceiver {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
         String title = intent.getStringExtra("title");
+        String day = intent.getStringExtra("day");
 
-        Intent activityIntent = new Intent(context, NewReminderActivity.class);
+        Intent activityIntent = new Intent(context, DailyScheduleActivity.class);
+        activityIntent.putExtra("day", day);
         PendingIntent contentIntent = PendingIntent.getActivity(context,
                 0, activityIntent, 0);
 
