@@ -83,6 +83,15 @@ public class DailyScheduleActivity extends AppCompatActivity {
         Intent homeIntent = new Intent(this, MainActivity.class);
         startActivity(homeIntent);
     }
+    public void goToHelp() {
+        Intent homeIntent = new Intent(this, HelpActivity.class);
+        startActivity(homeIntent);
+    }
+
+    public void goToJournal() {
+        Intent homeIntent = new Intent(this, JournalActivity.class);
+        startActivity(homeIntent);
+    }
 
     private NavigationBarView.OnItemSelectedListener bottomnavFunction = new NavigationBarView.OnItemSelectedListener() {
         @Override
@@ -93,6 +102,12 @@ public class DailyScheduleActivity extends AppCompatActivity {
                     break;
                 case R.id.homeMenuItem:
                     goToHome();
+                    break;
+                case R.id.findHelpMenuItem:
+                    goToHelp();
+                    break;
+                case R.id.journalMenuItem:
+                    goToJournal();
                     break;
             }
             return true;

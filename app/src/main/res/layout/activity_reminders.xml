@@ -112,7 +112,7 @@
     <Button
         android:id="@+id/sundayButton"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="480dp"
