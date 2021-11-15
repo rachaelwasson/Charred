@@ -51,7 +51,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="Enter University Here"
+        android:hint="Enter University Here"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#070707"
