@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,11 +40,12 @@ public class NewReminderActivity extends AppCompatActivity {
     int dayInt;
     public static final String CHANNEL_1_ID = "channel1";
     private NotificationManagerCompat notificationManager;
-    EditText timeEditText;
+//    EditText timeEditText;
     EditText titleEditText;
     static int reminderHour;
     static int reminderMinute;
     static String formattedTime;
+    static TextView timeDisplayText;
 
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
@@ -68,6 +70,9 @@ public class NewReminderActivity extends AppCompatActivity {
             if (hourOfDay > 12) {
                 formattedHour = String.valueOf(hourOfDay - 12);
                 pm = true;
+            } else if (hourOfDay == 12) {
+                formattedHour = String.valueOf(hourOfDay);
+                pm = true;
             } else {
                 formattedHour = String.valueOf(hourOfDay);
             }
@@ -80,6 +85,7 @@ public class NewReminderActivity extends AppCompatActivity {
             } else {
                 formattedTime = formattedHour + ":" + formattedMinute + "am";
             }
+            timeDisplayText.setText(formattedTime);
         }
     }
 
@@ -89,23 +95,32 @@ public class NewReminderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_reminder);
 
         titleEditText = (EditText) findViewById(R.id.titleEditText);
+        timeDisplayText = (TextView) findViewById(R.id.timeDisplayText);
         Intent intent = getIntent();
         day = intent.getStringExtra("day");
+        Log.i("day from intent", day);
         switch (day) {
-            case "Monday":
-                dayInt = 1;
-            case "Tuesday":
-                dayInt = 2;
-            case "Wednesday":
-                dayInt = 3;
-            case "Thursday":
-                dayInt = 4;
-            case "Friday":
-                dayInt = 5;
-            case "Saturday":
-                dayInt = 6;
             case "Sunday":
-                dayInt = 7;
+                dayInt = Calendar.SUNDAY;
+                break;
+            case "Monday":
+                dayInt = Calendar.MONDAY;
+                break;
+            case "Tuesday":
+                dayInt = Calendar.TUESDAY;
+                break;
+            case "Wednesday":
+                dayInt = Calendar.WEDNESDAY;
+                break;
+            case "Thursday":
+                dayInt = Calendar.THURSDAY;
+                break;
+            case "Friday":
+                dayInt = Calendar.FRIDAY;
+                break;
+            case "Saturday":
+                dayInt = Calendar.SATURDAY;
+                break;
         }
         reminderid = intent.getIntExtra("reminderid", -1);
 
@@ -164,23 +179,25 @@ public class NewReminderActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        // if alarm time is passed, schedule for the next day
-        if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) != dayInt
-                    && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= reminderHour
-                    && Calendar.getInstance().get(Calendar.MINUTE) >= reminderMinute
-        ) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1); // add, not set!
+        calendar.set(Calendar.DAY_OF_WEEK, dayInt);
+
+        // set the alarm for this time either today or the next week (if the time has passed)
+        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= reminderHour
+            && Calendar.getInstance().get(Calendar.MINUTE) > reminderMinute) {
+            calendar.add(Calendar.DAY_OF_YEAR, 7); // add, not set!
         }
+
+//        Log.i("dayInt", String.valueOf(dayInt));
+//        Log.i("Calendar.DAY_OF_WEEK", String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
+
         calendar.set(Calendar.HOUR_OF_DAY, reminderHour);
         calendar.set(Calendar.MINUTE, reminderMinute);
         calendar.set(Calendar.SECOND, 0);
 
-        //long timeAtButtonClick = System.currentTimeMillis();
-
-        //long fiveSecondsInMillis = 1000 * 5;
-
-        alarmManager.set(AlarmManager.RTC_WAKEUP,
+        // set repeating alarm, interval of one week
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY*7,
                 actionIntent);
     }
 

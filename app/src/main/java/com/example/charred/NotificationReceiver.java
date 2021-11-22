@@ -33,6 +33,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setColor(Color.BLUE)
                 .setContentIntent(contentIntent)
+                .setOnlyAlertOnce(false)
                 .setAutoCancel(true)
                 .build();
 
