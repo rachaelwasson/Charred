@@ -179,16 +179,21 @@ public class NewReminderActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        calendar.set(Calendar.DAY_OF_WEEK, dayInt);
-
-        // set the alarm for this time either today or the next week (if the time has passed)
-        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= reminderHour
+        // alarm is set for a day earlier in the week, so set for correct day of the next week
+        if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) < dayInt) {
+            calendar.add(Calendar.DAY_OF_YEAR, 7-(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - dayInt));
+        }
+        // alarm is set for this day of the week,
+        // so set the alarm for this time either today or the next week (if the time has passed)
+        else if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == dayInt
+            && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= reminderHour
             && Calendar.getInstance().get(Calendar.MINUTE) > reminderMinute) {
             calendar.add(Calendar.DAY_OF_YEAR, 7); // add, not set!
         }
-
-//        Log.i("dayInt", String.valueOf(dayInt));
-//        Log.i("Calendar.DAY_OF_WEEK", String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
+        // alarm is set for later in the current week
+        else if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) > dayInt) {
+            calendar.add(Calendar.DAY_OF_YEAR, Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - dayInt);
+        }
 
         calendar.set(Calendar.HOUR_OF_DAY, reminderHour);
         calendar.set(Calendar.MINUTE, reminderMinute);

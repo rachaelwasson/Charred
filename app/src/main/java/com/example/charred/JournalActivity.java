@@ -2,14 +2,23 @@ package com.example.charred;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
+
 public class JournalActivity extends AppCompatActivity {
     private NavigationBarView bottomNavigationView;
+    public static ArrayList<Journal> journals = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +27,41 @@ public class JournalActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnItemSelectedListener(bottomnavFunction);
+
+        // Get SQLiteDatabase instance.
+        Context context = getApplicationContext();
+        SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase("journals", Context.MODE_PRIVATE, null);
+
+        // Initiate the "journals" class variable using readJournals method implemented in journalsDBHelper class.
+        journalDBHelper dbHelper = new journalDBHelper(sqLiteDatabase);
+        journals = dbHelper.readJournals();
+
+        // Create an ArrayList<Journal> object by iterating over journals object.
+        ArrayList<String> displayJournals = new ArrayList<>();
+        for (Journal journal : journals) {
+            displayJournals.add(String.format("Title:%s\nDate:%s", journal.getTitle(), journal.getDate()));
+        }
+
+        // Use ListView view to display journals on screen.
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.black_text_list_item, displayJournals);
+        ListView listView = (ListView) findViewById(R.id.journalsListView);
+        listView.setAdapter(adapter);
+
+        // Add onItemClickListener for journal item
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), NewJournalActivity.class);
+                intent.putExtra("journalid", position);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    public void addJournal(View view) {
+        Intent intent = new Intent(this, NewJournalActivity.class);
+        startActivity(intent);
     }
 
     public void goToReminders() {

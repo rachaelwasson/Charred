@@ -36,21 +36,24 @@
         app:menu="@menu/menu" />
 
     <ListView
+        android:id="@+id/journalsListView"
         android:layout_width="375dp"
         android:layout_height="456dp"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
         android:layout_marginBottom="17dp" />
 
     <Button
-        android:id="@+id/addSection"
+        android:id="@+id/addJournal"
         android:layout_width="140dp"
         android:layout_height="68dp"
         android:layout_above="@+id/bottomNav"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="34dp"
         android:background="@drawable/button_border_theme6"
-        android:text="Add a Section" />
+        android:onClick="addJournal"
+        android:text="Add a Journal Entry" />
 
 </RelativeLayout>
