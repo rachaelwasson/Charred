@@ -12,21 +12,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="102dp"
-        android:hint="Write here..."
+        android:hint="Write or tap microphone..."
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/black"/>
+        tools:textColorHint="@color/black" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="92dp"
         android:onClick="saveMethod"
         android:text="save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/button_border_theme6"/>
+
+    <ImageView
+        android:id="@+id/micButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/button_border_theme1"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintStart_toStartOf="@+id/saveButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:srcCompat="@drawable/ic_baseline_mic_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
