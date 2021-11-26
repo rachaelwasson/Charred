@@ -148,7 +148,7 @@ public class HelpActivity extends AppCompatActivity {
         if (universityInputString.equals("UW - Madison")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(43.0757339, -89.4061951);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Madison").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mMadisonCounselingServices).title("Madison Counseling Services").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -165,7 +165,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW – Eau Claire")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.7977867, -91.5169103);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Eau Claire").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mWellnessShack).title("Wellness Shack Inc.").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -178,7 +178,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW – Green Bay")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.5312802, -87.9259502);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Green Bay").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mOneidaBehavioralHealth).title("Oneida Behavioral Health Services").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -191,7 +191,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW – La Crosse")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(43.8173997, -91.2333511);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - La Crosse").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mDriftlessRecoveryServices).title("Driftless Recovery Services").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -204,7 +204,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW - Milwaukee")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(43.0782669, -87.8841573);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Milwaukee").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mFlourishCounseling).title("Flourish Counseling Milwaukee").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -219,7 +219,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW - Oshkosh")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.0262133, -88.5530043);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Oshkosh").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mOshkoshCounselingWellness).title("Oshkosh Counseling Wellness Center").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -234,7 +234,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW - Parkside")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(42.6450098, -87.8539297);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Parkside").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mAuroraBehavioral).title("Aurora Behavioral Health Center").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -247,7 +247,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW - Platteville")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(42.7322205, -90.4964561);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Platteville").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mSouthwestBehavioral).title("Southwest Behavioral Services - Outpatient Psychiatry").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -260,7 +260,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW - River Falls")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.8530041, -92.6244211);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - River Falls").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mStCroixPsychological).title("St Croix Psychological Clinic").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -276,7 +276,7 @@ public class HelpActivity extends AppCompatActivity {
         else if (universityInputString.equals("UW - Stevens Point")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.5294529, -89.5735663);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Stevens Point").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mPointCounseling).title("Point Counseling Center LLC").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -289,7 +289,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW - Stout")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.8716224, -91.9288928);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Stout").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mBeaconMentalHealth).title("Beacon Mental Health Resources").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -302,7 +302,7 @@ public class HelpActivity extends AppCompatActivity {
         } else if (universityInputString.equals("UW - Superior")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(46.7177513, -92.0903409);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Superior").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mNorthwestJourneySuperior).title("Northwest Journey Superior").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -316,7 +316,7 @@ public class HelpActivity extends AppCompatActivity {
         else if (universityInputString.equals("UW - Whitewater")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(42.8416882, -88.7449515);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Your University").icon(BitmapDescriptorFactory
+            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW-Whitewater").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             mMap.addMarker(new MarkerOptions().position(mAmbroseHealth).title("Ambrose Health Center").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));

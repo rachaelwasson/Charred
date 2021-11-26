@@ -23,10 +23,12 @@
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
+        android:layout_width="303dp"
+        android:layout_height="330dp"
+        android:layout_below="@+id/selectButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp"
         android:layout_marginBottom="98dp" />
 
     <TextView
@@ -48,13 +50,15 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="140dp"
+        android:backgroundTint="#4A4A4A"
         android:ems="10"
+        android:hint="Enter University Here"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:hint="Enter University Here"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#070707"
+        android:textColorHint="#4A4A4A"
         android:textSize="18sp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -39,7 +39,7 @@ public class JournalActivity extends AppCompatActivity {
         // Create an ArrayList<Journal> object by iterating over journals object.
         ArrayList<String> displayJournals = new ArrayList<>();
         for (Journal journal : journals) {
-            displayJournals.add(String.format("Title:%s\nDate:%s", journal.getTitle(), journal.getDate()));
+            displayJournals.add(String.format("Title: %s\nDate: %s", journal.getTitle(), journal.getDate()));
         }
 
         // Use ListView view to display journals on screen.

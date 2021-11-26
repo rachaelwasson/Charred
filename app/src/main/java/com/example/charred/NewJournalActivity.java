@@ -27,6 +27,7 @@ public class NewJournalActivity extends AppCompatActivity {
     public SpeechRecognizer speechRecognizer;
     ImageView micButton;
     EditText editText;
+    EditText titleText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class NewJournalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_journal);
 
         editText = (EditText) findViewById(R.id.textView);
+        titleText = (EditText) findViewById(R.id.titleView);
         micButton = (ImageView) findViewById(R.id.micButton);
         Intent intent = getIntent();
         journalid = intent.getIntExtra("journalid", -1);
@@ -42,6 +44,8 @@ public class NewJournalActivity extends AppCompatActivity {
             Journal journal = JournalActivity.journals.get(journalid);
             String journalContent = journal.getContent();
             editText.setText(journalContent);
+            String title = journal.getTitle();
+            titleText.setText(title);
         }
 
         // create SpeechRecognizer object for using speech-to-text features
@@ -132,10 +136,12 @@ public class NewJournalActivity extends AppCompatActivity {
         String date = dateFormat.format(new Date());
 
         if (journalid == -1) {
-            title ="Journal #" + (JournalActivity.journals.size() + 1);
+            //title ="Journal #" + (JournalActivity.journals.size() + 1);
+            title = titleText.getText().toString();
             dbHelper.saveJournals(title, content, date);
         } else {
-            title="Journal #" + (journalid + 1);
+            //title="Journal #" + (journalid + 1);
+            title = titleText.getText().toString();
             dbHelper.updateJournal(title, date, content);
         }
 
