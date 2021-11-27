@@ -47,7 +47,6 @@ public class DailyScheduleActivity extends AppCompatActivity {
 
         ArrayList<String> displayReminders = new ArrayList<>();
         for (Reminder reminder: reminders) {
-            Log.i("reminder", reminder.getTitle());
             displayReminders.add(String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
         }
 
@@ -116,9 +115,6 @@ public class DailyScheduleActivity extends AppCompatActivity {
 
     // I can't figure out a way to get multiple inputs from a dialog box,
     // so changing this part of the design to a new activity like we did in Lab 5
-//    public void onButtonClick(View view) {
-//        openDialog();
-//    }
     public void onNewReminderButtonClick(View view) {
         Intent newReminderIntent = new Intent(this, NewReminderActivity.class);
         newReminderIntent.putExtra("day", day);

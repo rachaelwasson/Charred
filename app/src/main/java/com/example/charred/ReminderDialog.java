@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
@@ -18,7 +19,7 @@ public class ReminderDialog extends AppCompatDialogFragment {
         Bundle mArgs = getArguments();
         int position = mArgs.getInt("position");
         int id = mArgs.getInt("id");
-        Reminder reminder = DailyScheduleActivity.reminders.get(id);
+        Reminder reminder = DailyScheduleActivity.reminders.get(position);
         String day = reminder.getDay();
         String time = reminder.getTime();
         String title = reminder.getTitle();

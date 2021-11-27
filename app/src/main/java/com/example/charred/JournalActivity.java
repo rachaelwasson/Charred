@@ -33,7 +33,7 @@ public class JournalActivity extends AppCompatActivity {
         SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase("journals", Context.MODE_PRIVATE, null);
 
         // Initiate the "journals" class variable using readJournals method implemented in journalsDBHelper class.
-        journalDBHelper dbHelper = new journalDBHelper(sqLiteDatabase);
+        JournalDBHelper dbHelper = new JournalDBHelper(sqLiteDatabase);
         journals = dbHelper.readJournals();
 
         // Create an ArrayList<Journal> object by iterating over journals object.

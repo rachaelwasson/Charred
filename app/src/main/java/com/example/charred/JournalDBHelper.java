@@ -5,11 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-public class journalDBHelper {
+public class JournalDBHelper {
 
     SQLiteDatabase sqLiteDatabase;
 
-    public journalDBHelper (SQLiteDatabase sqLiteDatabase) { this.sqLiteDatabase = sqLiteDatabase; }
+    public JournalDBHelper(SQLiteDatabase sqLiteDatabase) { this.sqLiteDatabase = sqLiteDatabase; }
 
     public void createTable() {
 
