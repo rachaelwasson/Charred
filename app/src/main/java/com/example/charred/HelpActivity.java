@@ -7,8 +7,10 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -24,9 +27,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.maps.android.SphericalUtil;
 
 public class HelpActivity extends AppCompatActivity {
     private NavigationBarView bottomNavigationView;
@@ -35,6 +41,8 @@ public class HelpActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 12;
     //Bascom Hall
     private final LatLng mBascomHallLatLng = new LatLng(43.0757339,-89.4061951);
+    private float radius;
+    private float radiusMile;
 
     //list of universities to select from
     String[] universityText = {"UW - Madison", "UW – Eau Claire", "UW – Green Bay", "UW – La Crosse",
@@ -145,185 +153,298 @@ public class HelpActivity extends AppCompatActivity {
         String universityInputString = acTextView.getText().toString();
         Log.i("selected location", universityInputString);
 
+        EditText radiusEntered = (EditText) findViewById(R.id.radiusEntered);
+
+        if (TextUtils.isEmpty(radiusEntered.getText().toString())) {
+            Toast.makeText(HelpActivity.this, "Please Input Radius of Search", Toast.LENGTH_SHORT).show();
+            radiusMile = (float) (10 * 1609.344);
+        } else {
+            radius = Float.parseFloat(radiusEntered.getText().toString());
+            radiusMile = (float) (radius * 1609.344);
+        }
+
         if (universityInputString.equals("UW - Madison")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(43.0757339, -89.4061951);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Madison").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mMadisonCounselingServices).title("Madison Counseling Services").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mUWHealth).title("UW Health Behavioral Health and Recovery Clinic").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mHarmonia).title("Harmónia - Madison Center for Psychotherapy").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mWestside).title("Westside Psychotherapy").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mPeaceOfMindTherapy).title("Peace of Mind Therapy").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            // adding resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mMadisonCounselingServices, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mMadisonCounselingServices).title("Madison Counseling Services").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mUWHealth, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mUWHealth).title("UW Health Behavioral Health and Recovery Clinic").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mHarmonia, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mHarmonia).title("Harmónia - Madison Center for Psychotherapy").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mWestside, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mWestside).title("Westside Psychotherapy").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mPeaceOfMindTherapy, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mPeaceOfMindTherapy).title("Peace of Mind Therapy").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            //View v = getSupportFragmentManager().findFragmentById(R.id.map).getView();
+            //v.setAlpha(0.5f);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW – Eau Claire")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.7977867, -91.5169103);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Eau Claire").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mWellnessShack).title("Wellness Shack Inc.").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(m22ADayCounseling).title("22 A Day Counseling LLC").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mUWEauClaireCounseling).title("UW Eau Claire Counseling").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //adding resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mWellnessShack, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mWellnessShack).title("Wellness Shack Inc.").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(m22ADayCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(m22ADayCounseling).title("22 A Day Counseling LLC").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mUWEauClaireCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mUWEauClaireCounseling).title("UW Eau Claire Counseling").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW – Green Bay")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.5312802, -87.9259502);
-            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Green Bay").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mOneidaBehavioralHealth).title("Oneida Behavioral Health Services").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mSpectrumBehavioralHealth).title("Spectrum Behavioral Health LLC").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mBrownCountyMentalHealth).title("Brown County Mental Health Center").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Green Bay").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            //adding resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mOneidaBehavioralHealth, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mOneidaBehavioralHealth).title("Oneida Behavioral Health Services").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mSpectrumBehavioralHealth, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mSpectrumBehavioralHealth).title("Spectrum Behavioral Health LLC").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mBrownCountyMentalHealth, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mBrownCountyMentalHealth).title("Brown County Mental Health Center").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW – La Crosse")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(43.8173997, -91.2333511);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - La Crosse").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mDriftlessRecoveryServices).title("Driftless Recovery Services").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mTellurian).title("Tellurian, Inc. La Crosse CARE Center").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mMayoClinic).title("Mayo Clinic Health System - Outpatient Behavioral Health").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mDriftlessRecoveryServices, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mDriftlessRecoveryServices).title("Driftless Recovery Services").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mTellurian, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mTellurian).title("Tellurian, Inc. La Crosse CARE Center").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mMayoClinic, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mMayoClinic).title("Mayo Clinic Health System - Outpatient Behavioral Health").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW - Milwaukee")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(43.0782669, -87.8841573);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Milwaukee").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mFlourishCounseling).title("Flourish Counseling Milwaukee").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mMilwaukeeTherapy).title("Milwaukee Therapy").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mHillaryCounseling).title("Hillary Counseling").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mMilwaukeeArtTherapy).title("Milwaukee Art Therapy Collective").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mFlourishCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mFlourishCounseling).title("Flourish Counseling Milwaukee").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mMilwaukeeTherapy, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mMilwaukeeTherapy).title("Milwaukee Therapy").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mHillaryCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mHillaryCounseling).title("Hillary Counseling").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mMilwaukeeArtTherapy, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mMilwaukeeArtTherapy).title("Milwaukee Art Therapy Collective").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW - Oshkosh")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.0262133, -88.5530043);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Oshkosh").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mOshkoshCounselingWellness).title("Oshkosh Counseling Wellness Center").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mShermanCounseling).title("Sherman Counseling - Oshkosh").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mKetelhutCounseling).title("Ketelhut Counseling LLC").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mSamaritanCounseling).title("Samaritan Counseling Center").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mOshkoshCounselingWellness, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mOshkoshCounselingWellness).title("Oshkosh Counseling Wellness Center").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mShermanCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mShermanCounseling).title("Sherman Counseling - Oshkosh").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mKetelhutCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mKetelhutCounseling).title("Ketelhut Counseling LLC").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mSamaritanCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mSamaritanCounseling).title("Samaritan Counseling Center").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW - Parkside")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(42.6450098, -87.8539297);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Parkside").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mAuroraBehavioral).title("Aurora Behavioral Health Center").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mInterConnections).title("InterConnections S.C.").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mMendingMinds).title("Mending Minds Behavioral Health Services").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mAuroraBehavioral, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mAuroraBehavioral).title("Aurora Behavioral Health Center").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mInterConnections, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mInterConnections).title("InterConnections S.C.").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mMendingMinds, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mMendingMinds).title("Mending Minds Behavioral Health Services").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW - Platteville")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(42.7322205, -90.4964561);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Platteville").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mSouthwestBehavioral).title("Southwest Behavioral Services - Outpatient Psychiatry").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mFindYourWay).title("Find Your Way Counseling, LLC").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mWKMPsychology).title("WKM Psychology Clinics").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mSouthwestBehavioral, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mSouthwestBehavioral).title("Southwest Behavioral Services - Outpatient Psychiatry").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mFindYourWay, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mFindYourWay).title("Find Your Way Counseling, LLC").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mWKMPsychology, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mWKMPsychology).title("WKM Psychology Clinics").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW - River Falls")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.8530041, -92.6244211);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - River Falls").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mStCroixPsychological).title("St Croix Psychological Clinic").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mHensonLoretta).title("Henson Loretta P PhD LP").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mMHealthFairview).title("M Health Fairview Clinic - River Falls ").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mRiverFallsCounseling).title("River Falls Counseling, LLC").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mStCroixPsychological, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mStCroixPsychological).title("St Croix Psychological Clinic").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mHensonLoretta, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mHensonLoretta).title("Henson Loretta P PhD LP").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mMHealthFairview, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mMHealthFairview).title("M Health Fairview Clinic - River Falls ").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mRiverFallsCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mRiverFallsCounseling).title("River Falls Counseling, LLC").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         }
         else if (universityInputString.equals("UW - Stevens Point")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.5294529, -89.5735663);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Stevens Point").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mPointCounseling).title("Point Counseling Center LLC").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mTrueNorthCounseling).title("True North Counseling & Wellness").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mStacyLuther).title("Stacy M. Stefaniak Luther, PsyD, LPC").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mPointCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mPointCounseling).title("Point Counseling Center LLC").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mTrueNorthCounseling, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mTrueNorthCounseling).title("True North Counseling & Wellness").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mStacyLuther, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mStacyLuther).title("Stacy M. Stefaniak Luther, PsyD, LPC").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW - Stout")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(44.8716224, -91.9288928);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Stout").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mBeaconMentalHealth).title("Beacon Mental Health Resources").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mArborPlace).title("Arbor Place").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mNorthwestJourneyMenom).title("Northwest Journey Menomonie").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mBeaconMentalHealth, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mBeaconMentalHealth).title("Beacon Mental Health Resources").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mArborPlace, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mArborPlace).title("Arbor Place").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mNorthwestJourneyMenom, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mNorthwestJourneyMenom).title("Northwest Journey Menomonie").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         } else if (universityInputString.equals("UW - Superior")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(46.7177513, -92.0903409);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW - Superior").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mNorthwestJourneySuperior).title("Northwest Journey Superior").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mNorthShoreMentalHealth).title("North Shore Mental Health Services").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mLakeSuperiorHealth).title("Lake Superior Community Health Center").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mNorthwestJourneySuperior, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mNorthwestJourneySuperior).title("Northwest Journey Superior").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mNorthShoreMentalHealth, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mNorthShoreMentalHealth).title("North Shore Mental Health Services").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mLakeSuperiorHealth, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mLakeSuperiorHealth).title("Lake Superior Community Health Center").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         }
         else if (universityInputString.equals("UW - Whitewater")) {
             mMap.clear();
             mCurrentLatLng = new LatLng(42.8416882, -88.7449515);
             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("UW-Whitewater").icon(BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            mMap.addMarker(new MarkerOptions().position(mAmbroseHealth).title("Ambrose Health Center").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mMorningStar).title("Morning Star Psychotherapy Associates").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.addMarker(new MarkerOptions().position(mPsychologicalEval).title("Psychological Evaluation").icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //add resource to array if in radius
+            if (SphericalUtil.computeDistanceBetween(mAmbroseHealth, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mAmbroseHealth).title("Ambrose Health Center").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mMorningStar, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mMorningStar).title("Morning Star Psychotherapy Associates").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+            if (SphericalUtil.computeDistanceBetween(mPsychologicalEval, mCurrentLatLng)<radiusMile) {
+                mMap.addMarker(new MarkerOptions().position(mPsychologicalEval).title("Psychological Evaluation").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
             mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
         }
@@ -331,6 +452,12 @@ public class HelpActivity extends AppCompatActivity {
             //Log.i("code place", "here");
             displayMyLocation();
         }
+        Circle circle = mMap.addCircle(new CircleOptions()
+                .center(mCurrentLatLng)
+                .radius(radiusMile)
+                .strokeColor(Color.RED)
+                .strokeWidth(3f)
+                .fillColor(0x220000FF));
     }
 
 

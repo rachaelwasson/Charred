@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="136dp"
-        android:layout_marginTop="197dp"
+        android:layout_marginTop="215dp"
         android:background="@drawable/button_border_theme2"
         android:onClick="onButtonClick"
         android:text="Select"
@@ -28,7 +28,7 @@
         android:layout_below="@+id/selectButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="98dp" />
 
     <TextView
@@ -37,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="67dp"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="41dp"
         android:ems="10"
         android:text="Find Help"
         android:textAlignment="center"
@@ -49,7 +50,7 @@
         android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="100dp"
         android:backgroundTint="#4A4A4A"
         android:ems="10"
         android:hint="Enter University Here"
@@ -71,5 +72,34 @@
         app:itemTextColor="@color/black"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu" />
+
+    <TextView
+        android:id="@+id/radius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="168dp"
+        android:text="Radius of Search (mi): "
+        android:textColor="#070707"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/radiusEntered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="#4A4A4A"
+        android:hint="Enter Distance"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        android:textColorHint="#4A4A4A"
+        android:textSize="18sp" />
 
 </RelativeLayout>
