@@ -450,7 +450,9 @@ public class HelpActivity extends AppCompatActivity {
         }
         else {
             //Log.i("code place", "here");
+            mMap.clear();
             displayMyLocation();
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
         }
         Circle circle = mMap.addCircle(new CircleOptions()
                 .center(mCurrentLatLng)
@@ -472,12 +474,14 @@ public class HelpActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
-        //if permission granted, display marker at center of university
+        //if permission granted, display marker at center of user's location
         else {
             mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(this,
                     task -> { Location mLastKnownLocation = task.getResult();
-                        if(task.isSuccessful() && mLastKnownLocation != null) {
+                        if(task.isSuccessful() && (mLastKnownLocation != null)) {
                             mCurrentLatLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+                            Log.i("location longitude: ", String.valueOf(mCurrentLatLng.longitude));
+                            Log.i("location latitude: ", String.valueOf(mCurrentLatLng.latitude));
                             mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Current Location"));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
                         }
