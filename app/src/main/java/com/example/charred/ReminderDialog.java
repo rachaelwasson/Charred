@@ -1,7 +1,9 @@
 package com.example.charred;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +43,14 @@ public class ReminderDialog extends AppCompatDialogFragment {
                 .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // cancel alarm
+                        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                        Intent myIntent = new Intent(context.getApplicationContext(), NotificationReceiver.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                                context.getApplicationContext(), id, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                        alarmManager.cancel(pendingIntent);
+
                         remindersDBHelper.deleteReminder(day, time, title);
                         Intent intent = new Intent(context, DailyScheduleActivity.class);
                         intent.putExtra("day", day);

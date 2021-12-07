@@ -34,7 +34,6 @@ import java.util.Locale;
 // this class can be used to add a new reminder or edit an existing reminder
 public class NewReminderActivity extends AppCompatActivity {
 
-    //private static final int NOTIFICATION_REMINDER_NIGHT = 0;
     int reminderid=-1;
     String day;
     int dayInt;
@@ -172,7 +171,7 @@ public class NewReminderActivity extends AppCompatActivity {
         calendar.setTimeInMillis(System.currentTimeMillis());
 
         // alarm is set for a day earlier in the week, so set for correct day of the next week
-        if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) < dayInt) {
+        if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) > dayInt) {
             calendar.add(Calendar.DAY_OF_YEAR, 7-(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - dayInt));
         }
         // alarm is set for this day of the week,
@@ -183,8 +182,8 @@ public class NewReminderActivity extends AppCompatActivity {
             calendar.add(Calendar.DAY_OF_YEAR, 7); // add, not set!
         }
         // alarm is set for later in the current week
-        else if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) > dayInt) {
-            calendar.add(Calendar.DAY_OF_YEAR, Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - dayInt);
+        else if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) < dayInt) {
+            calendar.add(Calendar.DAY_OF_YEAR, Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
         }
 
         calendar.set(Calendar.HOUR_OF_DAY, reminderHour);
@@ -196,7 +195,7 @@ public class NewReminderActivity extends AppCompatActivity {
         broadcastIntent.putExtra("day", day);
         broadcastIntent.putExtra("calendar", calendar.getTimeInMillis());
         PendingIntent actionIntent = PendingIntent.getBroadcast(this,
-                0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                reminderid, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // set repeating alarm, interval of one week
         alarmManager.setExact(AlarmManager.RTC_WAKEUP,

@@ -1,5 +1,6 @@
 package com.example.charred;
 
+import android.app.AlarmManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -65,6 +66,7 @@ public class RemindersDBHelper {
         createTable();
         sqLiteDatabase.execSQL(String.format("DELETE FROM reminders WHERE day = '%s' and time = '%s' and title = '%s'",
                 day, time, title));
+
         // DELETE FROM reminders WHERE title=Eat lunch!
         //return sqLiteDatabase.delete("reminders", "title" + "=" + title, null) > 0;
     }
