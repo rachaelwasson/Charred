@@ -164,15 +164,7 @@ public class NewReminderActivity extends AppCompatActivity {
     }
 
     public void sendOnChannel(View v) {
-        //String time = timeEditText.getText().toString();
-        //String time = String.valueOf(reminderHour) + ":" + String.valueOf(reminderMinute);
         String title = titleEditText.getText().toString();
-
-        Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
-        broadcastIntent.putExtra("title", title);
-        broadcastIntent.putExtra("day", day);
-        PendingIntent actionIntent = PendingIntent.getBroadcast(this,
-                0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -199,10 +191,16 @@ public class NewReminderActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, reminderMinute);
         calendar.set(Calendar.SECOND, 0);
 
+        Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
+        broadcastIntent.putExtra("title", title);
+        broadcastIntent.putExtra("day", day);
+        broadcastIntent.putExtra("calendar", calendar.getTimeInMillis());
+        PendingIntent actionIntent = PendingIntent.getBroadcast(this,
+                0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         // set repeating alarm, interval of one week
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY*7,
                 actionIntent);
     }
 
