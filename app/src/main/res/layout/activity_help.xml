@@ -15,7 +15,7 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="136dp"
         android:layout_marginTop="215dp"
-        android:background="@drawable/button_border_theme2"
+        android:background="@drawable/button_border_theme6"
         android:onClick="onButtonClick"
         android:text="Select"
         android:textColor="@color/theme5" />
