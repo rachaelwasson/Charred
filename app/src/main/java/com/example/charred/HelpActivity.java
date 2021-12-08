@@ -55,6 +55,8 @@ public class HelpActivity extends AppCompatActivity {
         "UW - Milwaukee", "UW - Oshkosh", "UW - Parkside", "UW - Platteville", "UW - River Falls",
         "UW - Stevens Point", "UW - Stout", "UW - Superior", "UW - Whitewater", "Current Location"};
 
+    LatLng GPSLatLng;
+
     LatLng mCurrentLatLng = new LatLng(43.0757339,-89.4061951);
 
     //UW–Eau Claire Resources
@@ -151,6 +153,8 @@ public class HelpActivity extends AppCompatActivity {
         acTextView.setThreshold(1);
         //Set the adapter
         acTextView.setAdapter(adapter);
+
+        displayMyLocation();
 
     }
 
@@ -274,22 +278,33 @@ public class HelpActivity extends AppCompatActivity {
                     .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             checkResources(mCurrentLatLng);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
         }
-        else if(universityInputString.equals("Current Location")){
+        if(universityInputString.equals("Current Location")){
             //Log.i("code place", "here");
             mMap.clear();
-            displayMyLocation();
-            checkResources(mCurrentLatLng);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(8));
+            //displayMyLocation();
+            mMap.addMarker(new MarkerOptions().position(GPSLatLng).title("Current Location").icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(GPSLatLng));
+            checkResources(GPSLatLng);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(GPSLatLng));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+            Circle circle = mMap.addCircle(new CircleOptions()
+                    .center(GPSLatLng)
+                    .radius(radiusMile)
+                    .strokeColor(Color.RED)
+                    .strokeWidth(3f)
+                    .fillColor(0x220000FF));
         }
-        Circle circle = mMap.addCircle(new CircleOptions()
-                .center(mCurrentLatLng)
-                .radius(radiusMile)
-                .strokeColor(Color.RED)
-                .strokeWidth(3f)
-                .fillColor(0x220000FF));
+        else {
+            Circle circle = mMap.addCircle(new CircleOptions()
+                    .center(mCurrentLatLng)
+                    .radius(radiusMile)
+                    .strokeColor(Color.RED)
+                    .strokeWidth(3f)
+                    .fillColor(0x220000FF));
+        }
     }
 
 
@@ -309,12 +324,10 @@ public class HelpActivity extends AppCompatActivity {
             mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(this,
                     task -> { Location mLastKnownLocation = task.getResult();
                         if(task.isSuccessful() && (mLastKnownLocation != null)) {
-                            mCurrentLatLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                            Log.i("location longitude: ", String.valueOf(mCurrentLatLng.longitude));
-                            Log.i("location latitude: ", String.valueOf(mCurrentLatLng.latitude));
-                            mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Current Location").icon(BitmapDescriptorFactory
-                                    .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
+                            GPSLatLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+                            //mMap.addMarker(new MarkerOptions().position(mCurrentLatLng).title("Current Location").icon(BitmapDescriptorFactory
+                            //        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                            //mMap.moveCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
                         }
             });
         }
