@@ -20,7 +20,6 @@ public class ReminderDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         Bundle mArgs = getArguments();
         int position = mArgs.getInt("position");
-        int id = mArgs.getInt("id");
         Reminder reminder = DailyScheduleActivity.reminders.get(position);
         String day = reminder.getDay();
         String time = reminder.getTime();
@@ -28,30 +27,31 @@ public class ReminderDialog extends AppCompatDialogFragment {
         Context context = getContext();
         SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase("reminders", Context.MODE_PRIVATE, null);
         RemindersDBHelper remindersDBHelper= new RemindersDBHelper(sqLiteDatabase);
-        builder.setTitle("Edit Reminder")
-                .setMessage("Would you like to delete or edit this reminder?")
-                .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+        builder.setTitle("Delete Reminder")
+                .setMessage("Would you like to delete this reminder?")
+                .setNegativeButton("Yes, delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(context, NewReminderActivity.class);
-                        intent.putExtra("reminderid", position);
+
+                        int alarmid = remindersDBHelper.deleteReminder(day, time, title);
+
+                        // cancel alarm
+                        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                        Intent myIntent = new Intent(context.getApplicationContext(), NotificationReceiver.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                                context.getApplicationContext(), alarmid, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                        alarmManager.cancel(pendingIntent);
+
+                        Intent intent = new Intent(context, DailyScheduleActivity.class);
                         intent.putExtra("day", day);
                         context.startActivity(intent);
 
                     }
                 })
-                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // cancel alarm
-                        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                        Intent myIntent = new Intent(context.getApplicationContext(), NotificationReceiver.class);
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                                context.getApplicationContext(), id, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                        alarmManager.cancel(pendingIntent);
-
-                        remindersDBHelper.deleteReminder(day, time, title);
                         Intent intent = new Intent(context, DailyScheduleActivity.class);
                         intent.putExtra("day", day);
                         context.startActivity(intent);

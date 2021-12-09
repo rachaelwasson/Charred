@@ -47,7 +47,98 @@ public class DailyScheduleActivity extends AppCompatActivity {
 
         ArrayList<String> displayReminders = new ArrayList<>();
         for (Reminder reminder: reminders) {
-            displayReminders.add(String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+
+            // order the reminders chronologically
+            boolean added = false;
+            int numReminders = displayReminders.size();
+
+            // edge case where new reminder is inserted at the start of the list
+            if (numReminders > 0) {
+                String r = displayReminders.get(0);
+                String[] splitString = r.split(" ");
+                String rTime = splitString[0];
+                String[] splitTime = rTime.split(":");
+                int rHour = Integer.valueOf(splitTime[0]);
+                int rMinute = Integer.valueOf(splitTime[1].substring(0, 2));
+                String newTime = reminder.getTime();
+                String[] newSplitTime = newTime.split(":");
+                int newHour = Integer.valueOf(newSplitTime[0]);
+                int newMinute = Integer.valueOf(newSplitTime[1].substring(0, 2));
+                // find the next latest time, and insert reminder immediately before
+                if (reminder.getTime().contains("am")) {
+                    if (r.contains("am")) {
+                        if (newHour < rHour) {
+                            displayReminders.add(0, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                            added = true;
+                        } else if (newHour == rHour) {
+                            if (newMinute < rMinute) {
+                                displayReminders.add(0, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                                added = true;
+                            }
+                        }
+                    } else if (r.contains("pm")) {
+                        displayReminders.add(0, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                        added = true;
+                    }
+                } else if (reminder.getTime().contains("pm")) {
+                    if (r.contains("pm")) {
+                        if (newHour < rHour) {
+                            displayReminders.add(0, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                            added = true;
+                        } else if (newHour == rHour) {
+                            if (newMinute < rMinute) {
+                                displayReminders.add(0, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                                added = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int i=1; i<numReminders; i++) {
+                String r = displayReminders.get(i);
+                String[] splitString = r.split(" ");
+                String rTime = splitString[0];
+                String[] splitTime = rTime.split(":");
+                int rHour = Integer.valueOf(splitTime[0]);
+                int rMinute = Integer.valueOf(splitTime[1].substring(0,2));
+                String newTime = reminder.getTime();
+                String[] newSplitTime = newTime.split(":");
+                int newHour = Integer.valueOf(newSplitTime[0]);
+                int newMinute = Integer.valueOf(newSplitTime[1].substring(0,2));
+                // find the next latest time, and insert reminder immediately before
+                if (reminder.getTime().contains("am")) {
+                    if (r.contains("am")) {
+                        if (newHour < rHour) {
+                            displayReminders.add(i, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                            added = true;
+                        } else if (newHour == rHour) {
+                            if (newMinute < rMinute) {
+                                displayReminders.add(i, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                                added = true;
+                            }
+                        }
+                    } else if (r.contains("pm")) {
+                        displayReminders.add(i, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                        added = true;
+                    }
+                } else if (reminder.getTime().contains("pm")) {
+                    if (r.contains("pm")) {
+                        if (newHour < rHour) {
+                            displayReminders.add(i, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                            added = true;
+                        } else if (newHour == rHour) {
+                            if (newMinute < rMinute) {
+                                displayReminders.add(i, String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+                                added = true;
+                            }
+                        }
+                    }
+                }
+            }
+            if (!added) {
+                displayReminders.add(String.format("%s: %s", reminder.getTime(), reminder.getTitle()));
+            }
         }
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.black_text_list_item, displayReminders);

@@ -39,12 +39,12 @@ public class NewReminderActivity extends AppCompatActivity {
     int dayInt;
     public static final String CHANNEL_1_ID = "channel1";
     private NotificationManagerCompat notificationManager;
-//    EditText timeEditText;
     EditText titleEditText;
     static int reminderHour;
     static int reminderMinute;
     static String formattedTime;
     static TextView timeDisplayText;
+    final int alarmid = (int) System.currentTimeMillis();
 
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
@@ -149,10 +149,11 @@ public class NewReminderActivity extends AppCompatActivity {
         RemindersDBHelper remindersDBHelper= new RemindersDBHelper(sqLiteDatabase);
 
         if (reminderid == -1) {
-            remindersDBHelper.saveReminders(day, formattedTime, title);
-        } else {
-            remindersDBHelper.updateReminder(day, formattedTime, title);
+            remindersDBHelper.saveReminders(day, formattedTime, title, String.valueOf(alarmid));
         }
+//        } else {
+//            remindersDBHelper.updateReminder(day, formattedTime, title, alarmid);
+//        }
 
         Toast.makeText(this, "Reminder Set!", Toast.LENGTH_SHORT).show();
         sendOnChannel(view);
@@ -195,7 +196,7 @@ public class NewReminderActivity extends AppCompatActivity {
         broadcastIntent.putExtra("day", day);
         broadcastIntent.putExtra("calendar", calendar.getTimeInMillis());
         PendingIntent actionIntent = PendingIntent.getBroadcast(this,
-                reminderid, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmid, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // set repeating alarm, interval of one week
         alarmManager.setExact(AlarmManager.RTC_WAKEUP,

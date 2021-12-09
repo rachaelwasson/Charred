@@ -8,7 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 // Based on DBHelper class from Lab 5, but instead of selecting
-// based on username, select based on day (not sure if this will work tho lol)
+// based on username, select based on day
 public class RemindersDBHelper {
 
     SQLiteDatabase sqLiteDatabase;
@@ -20,7 +20,7 @@ public class RemindersDBHelper {
     public void createTable() {
 
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS reminders " +
-                "(id INTEGER PRIMARY KEY, day TEXT, time TEXT, title TEXT, src TEXT)");
+                "(id INTEGER PRIMARY KEY, day TEXT, time TEXT, title TEXT, alarmid TEXT, src TEXT)");
     }
 
     public ArrayList<Reminder> readReminders(String day) {
@@ -50,24 +50,34 @@ public class RemindersDBHelper {
         return remindersList;
     }
 
-    public void saveReminders(String day, String time, String title) {
+    public void saveReminders(String day, String time, String title, String alarmid) {
         createTable();
-        sqLiteDatabase.execSQL(String.format("INSERT INTO reminders (day, time, title) VALUES ('%s', '%s', '%s')",
-                day, time, title));
+        sqLiteDatabase.execSQL(String.format("INSERT INTO reminders (day, time, title, alarmid) VALUES ('%s', '%s', '%s', '%s')",
+                day, time, title, alarmid));
     }
 
-    public void updateReminder(String day, String time, String title) {
-        createTable();
-        sqLiteDatabase.execSQL(String.format("Update reminders set time = '%s' where title = '%s' and day = '%s'",
-                time, title, day));
-    }
+//    public void updateReminder(String day, String time, String title, int alarmid) {
+//        createTable();
+//        sqLiteDatabase.execSQL(String.format("Update reminders set time = '%s' where title = '%s' and day = '%s'",
+//                time, title, day));
+//    }
 
-    public void deleteReminder(String day, String time, String title) {
+    public int deleteReminder(String day, String time, String title) {
+        // get alarmid from database before deleting entry, returned in order to cancel alarm
         createTable();
+        Cursor c = sqLiteDatabase.rawQuery(String.format("SELECT * from reminders where day like '%s' " +
+                "and time like '%s' and title like '%s'", day, time, title), null);
+        int alarmidIndex = c.getColumnIndex("alarmid");
+        c.moveToFirst();
+        int alarmid = Integer.valueOf(c.getString(alarmidIndex));
+        c.close();
+
         sqLiteDatabase.execSQL(String.format("DELETE FROM reminders WHERE day = '%s' and time = '%s' and title = '%s'",
                 day, time, title));
 
-        // DELETE FROM reminders WHERE title=Eat lunch!
-        //return sqLiteDatabase.delete("reminders", "title" + "=" + title, null) > 0;
+        sqLiteDatabase.close();
+
+        return alarmid;
+
     }
 }
